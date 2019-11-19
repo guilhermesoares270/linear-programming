@@ -39,24 +39,27 @@ def sucessores(positionList: List[Jogador], atual: List[Jogador], posAtual: int)
         
         sucessores.append(atualList.copy())
         atualList = atual.copy()
-    
-    # for sus in sucessores:
-    #     print(avalia(sus))
 
     current = atual
     for sus in sucessores:
         if avalia(sus) < avalia(current):
             current = sus
 
-    # print('sucessores')
-    # print(avalia(current))
-    # print('')
     return current
 
-# goleiros = subList('goleiro', jogadores)
-# zagueiros = subList('zagueiro', jogadores)
-# meias = subList('meia', jogadores)
-# atacantes = subList('atacante', jogadores)
+"""Posisition list is the list of player chosen to be changed
+    posAtual se refe a posição atual na lista que deve ser trocada"""
+def sucessoresTempera(positionList: List[Jogador], atual: List[Jogador], posAtual: int):
+    atualList = atual.copy()
+    sucessor = atualList.copy()
+
+    newPlayer = randint(0, len(positionList) - 1)
+    # print(newPlayer, len(atualList), len(positionList), positionList[1])
+
+    atualList[posAtual] = positionList[newPlayer]
+
+    return atualList
+    
 
 # Creates a sublist of a given position
 # This is usefull for separing the positions
@@ -101,23 +104,6 @@ def shemaTransverse(
             # closure(quantidade, jogador.posicao, jogador)
 
     return s1
-
-# def choosePlayers(
-#         quantidade: int,
-#         posicao: str,
-#         jogador: Jogador,
-#     )-> List[int]:
-
-#     res = []
-
-#     if quantidade <= 0:
-#         return []
-
-#     if jogador.posicao == posicao:
-#         res.append(jogador.valor)
-#         quantidade -= 1
-
-#     return res
 
 def avalia(solucao: List[Jogador]):
     res = 0

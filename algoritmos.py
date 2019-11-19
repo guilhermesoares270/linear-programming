@@ -1,7 +1,10 @@
-from BasicOperations import solucaoInicial, avalia, shemaTransverse, sucessores, subList, positionList
+from BasicOperations import sucessoresTempera, solucaoInicial, avalia, shemaTransverse, sucessores, subList, positionList
 from dataStructures import jogadores, esquemaTatico, Jogador, positions
 from typing import Callable, List
-from random import randint
+from random import randint, random
+import pprint
+from inspect import getmembers
+from math import exp
 
 def subidaDeEncosta():
     atual = solucaoInicial(jogadores, esquemaTatico)
@@ -73,6 +76,37 @@ def subidaDeEncosta2():
             tentativas = 0
     return va
 
+def temperaSimulada(t_max = 1000):
+    atual = solucaoInicial(jogadores, esquemaTatico)
+    va = avalia(atual)
+    t = t_max
+    t_min = 200
+    fr = 0.9
+
+    while (t > t_min):
+        print('va', va)
+
+        pos = randint(0, 3)
+
+        poslist = positionList(pos)
+
+        prox = sucessoresTempera(poslist, atual, pos)
+        
+        vp = avalia(prox)
+
+        DE = vp - va
+        if DE < 0:
+            atual = prox
+            va = vp
+        else:
+            ale = random()
+            aux = exp(-DE/t)
+            print(ale, aux)
+            if ale < aux:
+                va = vp
+        t = t * fr
+    return va
+
 #This function should choose a random player from a position
 #and return his posion in the atual list
 #example [1, 2 , 3, 4, 5 , 6 , 7, 8 , 9 ,10, 11]
@@ -106,5 +140,7 @@ def subList(pos: str, jogadores: List[Jogador])-> List[Jogador]:
 
 res = subidaDeEncosta()
 res2 = subidaDeEncosta2()
+res3 = temperaSimulada()
 print('subida de encosta', res)
 print('subida de encosta alternativo', res2)
+print('tempera simulada', res3)
