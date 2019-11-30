@@ -49,4 +49,16 @@ esquemaTatico = [
     ['atacante', 3]
 ]
 
+def getPositionNumber(pos):
+    if pos == 'goleiro':
+        return 0
+    elif pos == 'zagueiro':
+        return 1
+    elif pos == 'meia':
+        return 2
+    elif pos == 'atacante':
+        return 3
+    else:
+        return 0
+
 positions = ['goleiro', 'zagueiro', 'meia', 'atacante']
